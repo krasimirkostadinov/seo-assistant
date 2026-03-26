@@ -27,7 +27,29 @@ const schema = z
     }
   });
 
-export type Env = z.infer<typeof schema>;
+export type Env = z.infer<typeof schema> & { corsOrigins: string[] };
+
+function parseCorsOrigins(raw: string): string[] {
+  const segments = raw
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!segments.length) throw new Error("CORS_ORIGIN must include at least one origin");
+  const origins = new Set<string>();
+  for (const s of segments) {
+    let u: URL;
+    try {
+      u = new URL(s);
+    } catch {
+      throw new Error(`Invalid CORS_ORIGIN: ${s}`);
+    }
+    if (!["http:", "https:"].includes(u.protocol)) {
+      throw new Error(`CORS_ORIGIN must use http or https: ${s}`);
+    }
+    origins.add(u.origin);
+  }
+  return [...origins];
+}
 
 export function loadEnv(): Env {
   const parsed = schema.safeParse(process.env);
@@ -35,5 +57,12 @@ export function loadEnv(): Env {
     console.error(parsed.error.flatten().fieldErrors);
     throw new Error("Invalid environment");
   }
-  return parsed.data;
+  const data = parsed.data;
+  let corsOrigins: string[];
+  try {
+    corsOrigins = parseCorsOrigins(data.CORS_ORIGIN);
+  } catch (e) {
+    throw new Error(e instanceof Error ? e.message : "Invalid CORS_ORIGIN");
+  }
+  return { ...data, corsOrigins };
 }

@@ -91,7 +91,9 @@ export async function runSeoTurn(
         }),
         execute: async ({ url }) => {
           try {
-            return await fetchPageContent(url);
+            return await fetchPageContent(url, {
+              requireHttps: process.env.NODE_ENV === "production",
+            });
           } catch (e) {
             const msg = e instanceof Error ? e.message : "fetch_failed";
             return { url, title: "", metaDescription: "", h1: "", truncated: false, error: msg };

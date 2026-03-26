@@ -9,3 +9,4 @@ coverage
 node_modules/.tmp
 apps/api/data/
 .pnpm-store/
+.cursor/

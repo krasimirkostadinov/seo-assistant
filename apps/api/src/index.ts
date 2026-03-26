@@ -21,10 +21,12 @@ async function main() {
   const db = createDb(env);
 
   const app = Fastify({ logger: true });
+
   await app.register(cors, {
-    origin: env.CORS_ORIGIN.split(",").map((s) => s.trim()),
+    origin: env.corsOrigins,
     credentials: true,
-    methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "OPTIONS"],
+    allowedHeaders: ["authorization", "content-type"],
+    methods: ["GET", "HEAD", "POST", "OPTIONS"],
   });
   await app.register(healthRoutes);
   await app.register(threadRoutes, { prefix: "", env, db });
