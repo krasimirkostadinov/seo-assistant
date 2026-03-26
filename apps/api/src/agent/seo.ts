@@ -58,7 +58,7 @@ Never include text outside the JSON object.`;
 function parseSeoOutputFromText(text: string): SeoOutput | null {
   const stripped = text.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
   const fenced = stripped.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const candidates = fenced ? [fenced[1].trim(), stripped] : [stripped];
+  const candidates = fenced ? [(fenced[1] ?? "").trim(), stripped] : [stripped];
   const jsonMatch = stripped.match(/\{[\s\S]*\}/);
   if (jsonMatch) candidates.push(jsonMatch[0]);
   for (const candidate of candidates) {
