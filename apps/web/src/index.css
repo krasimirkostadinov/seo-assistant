@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sf-bg: #eaf1fb;
+  --color-sf-surface: #f5f8ff;
+  --color-sf-raised: #eef3fc;
+  --color-sf-border: #b8cfe8;
+  --color-sf-border-subtle: #d0e2f4;
+  --color-sf-text: #04142b;
+  --color-sf-muted: #3d5a7a;
+  --color-sf-primary: #2563eb;
+  --color-sf-primary-hover: #1d55d4;
+  --color-sf-teal: #0284c7;
+  --color-sf-teal-muted: #dbeafe;
+  --color-sf-user: #1e3a8a;
+  --color-sf-user-border: #2a52b8;
+}
+
+[data-theme="dark"] {
+  --color-sf-bg: #04142b;
+  --color-sf-surface: #071e3d;
+  --color-sf-raised: #0a2447;
+  --color-sf-border: #1a3a5c;
+  --color-sf-border-subtle: #102d4a;
+  --color-sf-text: #e8f0fe;
+  --color-sf-muted: #6b8cba;
+  --color-sf-primary: #90b6ff;
+  --color-sf-primary-hover: #aac8ff;
+  --color-sf-teal: #38bdf8;
+  --color-sf-teal-muted: #0a2a3a;
+  --color-sf-user: #1e3a8a;
+  --color-sf-user-border: #2a52b8;
+}
+
+body {
+  @apply min-h-screen bg-sf-bg text-sf-text antialiased;
+  background-image: radial-gradient(
+    ellipse 120% 80% at 50% -20%,
+    color-mix(in srgb, var(--color-sf-primary) 8%, transparent) 0%,
+    transparent 60%
+  );
+}

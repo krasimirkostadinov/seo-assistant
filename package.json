@@ -1,0 +1,18 @@
+{
+  "name": "seo-assistant",
+  "private": true,
+  "packageManager": "pnpm@10.6.5",
+  "pnpm": {
+    "onlyBuiltDependencies": ["better-sqlite3", "esbuild"]
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "dev:api": "pnpm --filter api dev",
+    "dev:web": "pnpm --filter web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r --if-present test:run",
+    "db:push": "pnpm --filter api db:push",
+    "db:reset": "rm -f apps/api/data/app.db && pnpm db:push"
+  }
+}

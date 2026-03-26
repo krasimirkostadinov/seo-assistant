@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.env.local
+*.db
+.DS_Store
+coverage
+.turbo
+node_modules/.tmp
+apps/api/data/
+.pnpm-store/
