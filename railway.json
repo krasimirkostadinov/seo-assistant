@@ -1,0 +1,12 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install -g pnpm && pnpm install && pnpm --filter api build"
+  },
+  "deploy": {
+    "startCommand": "pnpm --filter api db:push && node apps/api/dist/index.js",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  }
+}
