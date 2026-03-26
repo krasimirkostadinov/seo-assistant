@@ -26,7 +26,7 @@ async function main() {
     origin: env.corsOrigins,
     credentials: true,
     allowedHeaders: ["authorization", "content-type"],
-    methods: ["GET", "HEAD", "POST", "OPTIONS"],
+    methods: ["GET", "HEAD", "POST", "PATCH", "OPTIONS"],
   });
   await app.register(healthRoutes);
   await app.register(threadRoutes, { prefix: "", env, db });

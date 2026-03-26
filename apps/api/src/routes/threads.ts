@@ -129,20 +129,20 @@ export const threadRoutes: FastifyPluginAsync<{
     const userMsgId = crypto.randomUUID();
     const assistantId = crypto.randomUUID();
 
-    await opts.db.transaction(async (tx) => {
-      await tx.insert(messages).values({
+    opts.db.transaction((tx) => {
+      tx.insert(messages).values({
         id: userMsgId,
         threadId,
         role: "user",
         content: body.data.content,
-      });
-      await tx.insert(messages).values({
+      }).run();
+      tx.insert(messages).values({
         id: assistantId,
         threadId,
         role: "assistant",
         content: output.message,
         metadata: serializeMetadata(output.suggestions ? { suggestions: output.suggestions } : undefined),
-      });
+      }).run();
     });
 
     return {

@@ -1,0 +1,8 @@
+node_modules
+apps/*/node_modules
+apps/api/dist
+apps/api/data
+apps/web
+.env
+.env.local
+*.db
