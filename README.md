@@ -4,6 +4,8 @@ A conversational AI agent that analyzes web pages and suggests optimized `<title
 
 Built as a monorepo: React + Vite frontend (`apps/web`), Fastify + SQLite API (`apps/api`).
 
+**Live demo:** https://seo-assistant-web.vercel.app/
+
 ## Stack
 
 - **Frontend:** React 19, Vite, Tailwind CSS, Zustand, Auth0
@@ -89,8 +91,16 @@ Agent responses include a `metadata.suggestions` array when the model has enough
 }
 ```
 
+## Deployment
+
+The project ships with a `Dockerfile` for the API and deploys as:
+
+- **Backend:** Railway (auto-deploys on push to `main`)
+- **Frontend:** Vercel (auto-deploys on push to `main`)
+
+GitHub Actions runs the test suite on every push.
+
 ## Notes
 
-- The URL fetcher blocks common private IP ranges (localhost, 127.x, 10.x, 192.168.x, 172.16.x, 169.254.x) to prevent SSRF — not exhaustive, but covers the obvious cases.
+- The URL fetcher blocks common private IP ranges (localhost, 127.x, 10.x, 192.168.x, 172.16.x, 169.254.x) to prevent SSRF - not exhaustive, but covers the obvious cases.
 - UI is English only.
-- No Docker setup — the stack runs fine without it.
